@@ -1,7 +1,5 @@
 # CST338 Notes: Java Primer & Encapsulation
 
-*Source: SP26WK01_Quick_JavaPrimer.pptx, P1_Encapsulation.pptx*
-
 ## 1. Java Language Basics
 
 - Java is a **strongly typed** language — every variable has a fixed type, and type errors are caught rather than silently coerced.
@@ -69,7 +67,7 @@ Access modifiers control who/what can access or modify a class member. The core 
 
 ## 5. Encapsulation
 
-- **Encapsulation** (Wikipedia definitions given in class):
+- **Encapsulation**
   1. A language mechanism for restricting direct access to some of an object's components.
   2. A language construct that facilitates bundling data together with the methods that operate on that data.
 - Objects have data and are responsible for the **state** of that data.
@@ -136,7 +134,7 @@ public class Wk01_Demo {
 }
 ```
 
-- A `main` method can be included in **any** class.
+- A `main` method can be included in **any** class
 - `public` — must be accessible from anywhere (JVM needs to call it).
 - `static` — doesn't rely on an instance of the class existing (belongs to the class, not an object).
 - `void` — returns nothing.
@@ -183,10 +181,3 @@ public class Wk01_Demo {
         return actions.get(random.nextInt(actions.size()));
     }
     ```
-
-## 11. Course Context (background, low quiz-relevance)
-
-- Course assumes ~2 prior programming classes; assumes familiarity with variables, loops, if-statements, basic debugging — but no prior Java or OOP experience assumed.
-- Java is designed to be object-oriented; OOP supports extensibility, robustness, and good design.
-- Course goals: build Java experience, learn OOP design patterns/anti-patterns, work on larger projects, learn some software development practice, and write some JavaFX.
-- File-naming matters for submitted assignments (Canvas may append numbers to filenames — this is auto-corrected by the instructor's script, but the submitted file itself must be named correctly).
