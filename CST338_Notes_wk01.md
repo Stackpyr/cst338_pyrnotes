@@ -143,7 +143,7 @@ public class Wk01_Demo {
 
 ## 9. UML Diagrams (Unified Modeling Language)
 
-- UML standardizes notation for software design. Originally developed by Grady Booch, Ivar Jacobson, and James Rumbaugh at Rational Software (1994–1996).
+- UML standardizes notation for software design.
 - Class diagram box has three sections: class name, attributes, methods.
 - Attribute/method visibility symbols in UML map to access modifiers:
 
@@ -155,11 +155,29 @@ public class Wk01_Demo {
   | `~` | package-private |
 
 - Format example: `- attribute2 : String` (private String attribute2), `+ method1() : void` (public method returning void).
-- Tools for creating UML: **draw.io** (easy, accessible), **IntelliJ IDEA Ultimate** (can auto-generate UML from code), or hand-drawn (pencil/paper, whiteboard, tablet) and photographed.
+- Worked example from class (`ClassA`):
+
+  ```
+  ------------------------
+  |        ClassA        |
+  ------------------------
+  | + attribute1 : int   |
+  | - attribute2 : String|
+  | # attribute3 : double|
+  | ~ attribute4 : boolean|
+  ------------------------
+  | + method1() : void   |
+  | - method2(int) : String|
+  | # method3() : double |
+  | ~ method4() : boolean|
+  ------------------------
+  ```
+
+- **IntelliJ IDEA Ultimate** (can auto-generate UML from code)
 
 ## 10. Code Style & Documentation
 
-- Class follows Google's Java Style Guide (https://google.github.io/styleguide/javaguide.html):
+- Follows Google's Java Style Guide (https://google.github.io/styleguide/javaguide.html):
   - Class names must be capitalized.
   - Every statement gets braces `{ }` — even empty or one-line statements.
   - Opening braces go on the **same line** as the statement (not on their own line).
@@ -181,3 +199,25 @@ public class Wk01_Demo {
         return actions.get(random.nextInt(actions.size()));
     }
     ```
+
+## 11. Git Workflow: Feature Branch → Main
+
+Basic flow for getting work on a feature branch merged into `main`:
+
+```
+git checkout main
+git pull origin main                # bring local main up to date
+
+git checkout <feature-branch>
+git merge main                      # merge latest main into the feature branch
+
+git push origin -u <feature-branch> # -u is idempotent: if the branch already
+                                     # tracks its remote, re-running it is a no-op
+
+# On GitHub: open a PR, confirm tests pass, then squash and merge
+
+git checkout main
+git pull origin main                # sync local main with the just-merged PR
+
+git checkout -b <next-feature-branch>  # start the next feature branch
+```
