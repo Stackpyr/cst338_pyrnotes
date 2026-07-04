@@ -1,57 +1,57 @@
-# CST338 Notes: Java Primer & Encapsulation
+# CST338 Notes: Java, Encapsulation, UML, Git, JUnit
 
 ## 1. Java Language Basics
 
-- Java is a **strongly typed** language — every variable has a fixed type, and type errors are caught rather than silently coerced.
-- Java is also **statically typed** — types are checked at compile time. Example of a type mismatch caught by the compiler/linter:
+- **Strongly typed** — fixed variable types, errors caught not coerced
+- **Statically typed** — checked at compile time
 
   ```java
   int foo = 42;
   foo = "Nope."; // error: Required type: int, Provided: String
   ```
 
-- Java runs on the **Java Virtual Machine (JVM)** — compiled Java doesn't run directly on hardware; the JVM interprets/executes it, which is why Java is "write once, run anywhere."
-- Java **compiles into byte code** (`.class` files) rather than directly into native machine code. The `.java` source file is compiled into a `.class` byte code file that the JVM runs.
+- **JVM** — runs compiled Java; "write once, run anywhere"
+- **Byte code** — `.java` → compiled → `.class` (byte code) → run by JVM
 
 ## 2. Primitive vs. Reference Types
 
-**Primitive types** hold raw values directly (not objects), have no methods, and represent basic data:
+**Primitive types** — raw values, no methods, basic data:
 
 | Type | Kind of Value | Memory Used | Range |
 |---|---|---|---|
-| `boolean` | true or false | 1 bit (not applicable) | — |
-| `char` | single character (Unicode) | 2 bytes | all Unicode characters |
+| `boolean` | true or false | 1 bit (n/a) | — |
+| `char` | single char (Unicode) | 2 bytes | all Unicode chars |
 | `byte` | integer | 1 byte | -128 to 127 |
 | `short` | integer | 2 bytes | -32,768 to 32,767 |
-| `int` | integer | 4 bytes | ~-2.1 billion to 2.1 billion |
-| `long` | integer | 8 bytes | very large range |
+| `int` | integer | 4 bytes | ~-2.1B to 2.1B |
+| `long` | integer | 8 bytes | very large |
 | `float` | floating-point | 4 bytes | ~±3.4 × 10³⁸ |
 | `double` | floating-point | 8 bytes | ~±1.7 × 10³⁰⁸ |
 
-**Reference types** (a.k.a. objects/composite types):
-- Are first-class citizens — treated as objects.
-- Have both methods **and** data.
-- Hold the **state** of the object.
-- Everything that isn't a primitive is an object in Java.
+**Reference types** (objects/composite):
+- First-class citizens, treated as objects
+- Methods **and** data
+- Hold object's **state**
+- Non-primitive = object
 
 ## 3. Classes and Files
 
-- Each class goes in its **own file**.
-- The **file name must match the public class name** exactly (e.g., `Wk01_Demo.java` must contain `public class Wk01_Demo`). Mismatches cause a compile error ("we get yelled at").
-- Class names are capitalized (UpperCamelCase); this is why the file name capitalization matters.
-- Classes can be grouped into a **package** (a folder/namespace, declared with `package PackageName;` at the top of the file).
+- One class per file
+- **File name = public class name** exactly (mismatch → compile error)
+- Class names capitalized (UpperCamelCase)
+- **Package** = folder/namespace, `package PackageName;` at top of file
 
 ## 4. Members, Methods, and Access Modifiers
 
-- **Members**: variables that belong to a class (a.k.a. fields/attributes).
-- **Methods**: functions that belong to a class.
-  - A **function** is a named, callable block of code.
-  - A **method** is a function that belongs to an object.
-  - Methods are accessed with **dot notation**: `foo.addition();`
+- **Members** — variables belonging to a class (fields/attributes)
+- **Methods** — functions belonging to a class
+  - Function = named, callable code block
+  - Method = function belonging to an object
+  - Accessed via **dot notation**: `foo.addition();`
 
 ### Access Modifiers ("Trust and Access")
 
-Access modifiers control who/what can access or modify a class member. The core principle: objects must control their own state, and external code should not be able to directly change an object's internal state.
+Control who/what can access a member. Principle: objects control own state.
 
 | Modifier | Class | Package | Subclass | World |
 |---|---|---|---|---|
@@ -60,47 +60,44 @@ Access modifiers control who/what can access or modify a class member. The core 
 | *(no modifier)* — package-private | Y | Y | N | N |
 | `private` | Y | N | N | N |
 
-- **private**: only the class itself can access it.
-- **package-private** (no modifier): accessible within the same package.
-- **protected**: accessible within the same package or by subclasses.
-- **public**: accessible from anywhere.
+- **private** — class only
+- **package-private** (no modifier) — same package
+- **protected** — same package + subclasses
+- **public** — anywhere
 
 ## 5. Encapsulation
 
-- **Encapsulation**
-  1. A language mechanism for restricting direct access to some of an object's components.
-  2. A language construct that facilitates bundling data together with the methods that operate on that data.
-- Objects have data and are responsible for the **state** of that data.
-- We must be able to **trust** that data — encapsulation is how we enforce that trust, by controlling *who* has access.
-- The mechanism for controlling access to state: **setters and getters** (accessor/mutator methods), combined with `private` fields.
+- Restricts direct access to object's components
+- Bundles data with methods that operate on it
+- Objects own their **state**
+- Trust enforced by controlling access
+- Mechanism: **setters/getters** + `private` fields
 
 ## 6. What Is an Object?
 
-- An **object** is a collection of data and the methods that operate on that data.
-- Specifically, an object is an **instance of a class**.
-- An object is responsible for maintaining its own **state**.
+- Data + methods that operate on it
+- **Instance of a class**
+- Maintains own **state**
 
 ## 7. Constructors
 
-- A **constructor** is called when an object is **instantiated** (created) with the `new` keyword:
+- Called on **instantiation** (`new` keyword):
 
   ```java
   Wk02_demo demo = new Wk02_demo();
   ```
 
-- Java automatically provides a **default constructor** (no-argument) if you don't write one:
+- **Default constructor** — auto-provided, no-arg:
 
   ```java
   Demo2 demo = new Demo2();
   ```
 
-- **Parameterized constructors** let you pass arguments in when creating the object:
+- **Parameterized constructor** — pass args in:
 
   ```java
   Demo2 demo = new Demo2(21);
   ```
-
-  This requires defining a constructor in the class that accepts matching parameters, e.g.:
 
   ```java
   public class Demo2 {
@@ -119,9 +116,9 @@ Access modifiers control who/what can access or modify a class member. The core 
   }
   ```
 
-- A constructor **returns no type** — not even `void` — and **shares its name with the class**.
-- **Constructors can be overloaded** (multiple constructors with different parameter lists). Regular methods can be overloaded too.
-- **Java has no destructors** (no `~ClassName()` like C++). Java relies on **garbage collection** to reclaim memory instead of manual/explicit destruction.
+- No return type (not even `void`); name = class name
+- **Overloadable** (constructors and methods)
+- **No destructors** — garbage collection instead
 
 ## 8. The `main` Method
 
@@ -134,18 +131,18 @@ public class Wk01_Demo {
 }
 ```
 
-- A `main` method can be included in **any** class
-- `public` — must be accessible from anywhere (JVM needs to call it).
-- `static` — doesn't rely on an instance of the class existing (belongs to the class, not an object).
-- `void` — returns nothing.
-- `main` — the required method name; this is the JVM's entry point.
-- Must take a `String[]` (String array) parameter — used for command-line arguments.
+- Can live in **any** class
+- `public` — accessible anywhere (JVM calls it)
+- `static` — no instance needed, belongs to class
+- `void` — no return
+- `main` — required name, JVM entry point
+- `String[] args` — required param, command-line args
 
 ## 9. UML Diagrams (Unified Modeling Language)
 
-- UML standardizes notation for software design.
-- Class diagram box has three sections: class name, attributes, methods.
-- Attribute/method visibility symbols in UML map to access modifiers:
+- Standard notation for software design
+- Class box: name / attributes / methods
+- Visibility symbols = access modifiers:
 
   | Symbol | Modifier |
   |---|---|
@@ -154,8 +151,8 @@ public class Wk01_Demo {
   | `#` | protected |
   | `~` | package-private |
 
-- Format example: `- attribute2 : String` (private String attribute2), `+ method1() : void` (public method returning void).
-- Worked example from class (`ClassA`):
+- Format: `- attribute2 : String`, `+ method1() : void`
+- Example (`ClassA`):
 
   ```
   ------------------------
@@ -173,16 +170,38 @@ public class Wk01_Demo {
   ------------------------
   ```
 
-- **IntelliJ IDEA Ultimate** (can auto-generate UML from code)
+- IntelliJ IDEA Ultimate — auto-generates UML from code
+
+### Static, Abstract, Interfaces & Stereotypes
+
+- **Static** members — underlined
+- **Abstract** classes/methods — italicized
+- **Interfaces** — marked with the `«interface»` stereotype (stereotypes = metadata, shown in guillemets)
+- Constructors likewise get a `«constructor»` stereotype
+
+### Relationships (increasing specificity)
+
+| Relationship | Meaning | In Java |
+|---|---|---|
+| Dependency | A depends on B (loose) | e.g. B used as a local var/param |
+| Association | A sends messages to B | A holds/calls a B |
+| Aggregation | A is made up of B (part-whole) | A has a field of type B |
+| Composition | A made up of B, **and** B's lifetime depends on A | same, but B destroyed when A is |
+| Generalization | A generalizes B → B is a subclass of A | `extends` |
+| Realization | B realizes interface A | `implements` |
+
+- **Multiplicity** — how many objects on each end: `1` (default), `*` (zero or more), or a range (`2..*`)
+- **Directionality** — arrow = one-way; no arrowhead = bidirectional
+- Generalization/realization arrows conventionally drawn pointing **up** to the more general class/interface
 
 ## 10. Code Style & Documentation
 
-- Follows Google's Java Style Guide (https://google.github.io/styleguide/javaguide.html):
-  - Class names must be capitalized.
-  - Every statement gets braces `{ }` — even empty or one-line statements.
-  - Opening braces go on the **same line** as the statement (not on their own line).
-- **Javadoc**: comments of the form `/** ... */`.
-  - Every method you write yourself (not auto-generated, e.g. by an IDE) **must** have a Javadoc comment.
+- Google Java Style Guide (google.github.io/styleguide/javaguide.html):
+  - Class names capitalized
+  - Braces `{ }` always, even empty/one-line
+  - Opening brace on same line as statement
+- **Javadoc** — `/** ... */`
+  - Required for every hand-written method
   - Example:
 
     ```java
@@ -202,22 +221,48 @@ public class Wk01_Demo {
 
 ## 11. Git Workflow: Feature Branch → Main
 
-Basic flow for getting work on a feature branch merged into `main`:
+**Concepts:**
+- **Branch** — pointer to a specific commit
+- **Commit** — snapshot of tracked files at a point in time
+
+**Commands:**
+- `git branch {branchName}` — create branch, stay on current
+- `git checkout -b {branchName}` — create + switch to branch
+- `git merge {branch}` — combine, preserves/interleaves history
+- `git rebase {branch}` — combine, linear history
+
+**Feature branch → main flow:**
 
 ```
 git checkout main
 git pull origin main                # bring local main up to date
 
 git checkout <feature-branch>
-git merge main                      # merge latest main into the feature branch
+git merge main                      # merge latest main into feature branch
 
-git push origin -u <feature-branch> # -u is idempotent: if the branch already
-                                     # tracks its remote, re-running it is a no-op
+git push origin -u <feature-branch> # -u idempotent: no-op if already tracking
 
-# On GitHub: open a PR, confirm tests pass, then squash and merge
+# GitHub: open PR, confirm tests pass, squash and merge
 
 git checkout main
-git pull origin main                # sync local main with the just-merged PR
+git pull origin main                # sync local main with merged PR
 
-git checkout -b <next-feature-branch>  # start the next feature branch
+git checkout -b <next-feature-branch>  # start next feature branch
 ```
+
+## 12. JUnit
+
+- Framework for automated unit tests
+- Test class mirrors tested class (e.g. `ShapeTest` ↔ `Shape`)
+- `@Test` annotation + assertions:
+
+  ```java
+  @Test
+  void testGetArea() {
+      Shape s = new Shape(4, 5);
+      assertEquals(20, s.getArea());
+  }
+  ```
+
+- Common assertions: `assertEquals`, `assertTrue`/`assertFalse`, `assertThrows`
+- Run tests before merging PR (tests must pass before squash and merge)
